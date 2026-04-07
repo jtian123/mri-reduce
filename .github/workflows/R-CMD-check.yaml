@@ -38,15 +38,6 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install remotes
-        run: install.packages("remotes", repos = "https://cloud.r-project.org")
-        shell: Rscript {0}
-
-      - name: Install external package dependencies
-        run: |
-          remotes::install_github("neuroconductor/EveTemplate", upgrade = "never", dependencies = TRUE)
-        shell: Rscript {0}
-
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: |
