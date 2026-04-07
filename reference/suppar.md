@@ -88,7 +88,7 @@ tmp <- matrix(rnorm(200), ncol = 20)
 dir_tmp <- file.path(tempdir(), "suppar-example")
 suppar(tmp = tmp, thresh = c(0.3, 0.1), n.chunkf = 20, B = 10,
        compute.corr = TRUE, dir.tmp = dir_tmp)
-#> [1] "created: /tmp/RtmpoxygYd/suppar-example"
+#> [1] "created: /tmp/RtmphKkKif/suppar-example"
 #> [1] "Finishing chunk 1 start.ind: 1 end.ind: 20 n.edges: 35"
 #> [[1]]
 #> NULL

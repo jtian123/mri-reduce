@@ -75,7 +75,10 @@ label (<code>roi_text_label</code>), and the ROI identification
 <h2 id="process-t1-weighted-brain-mri-data-with-fsl-and-register-to-eve-atlas">Process T1-weighted Brain MRI Data with FSL and Register to EVE
 Atlas<a class="anchor" aria-label="anchor" href="#process-t1-weighted-brain-mri-data-with-fsl-and-register-to-eve-atlas"></a>
 </h2>
-<p>Ensure FSL is installed as per the instructions provided in the <a href="https://github.com/jtian123/MRIreduce" class="external-link">package README</a>.</p>
+<p>Ensure FSL is installed as per the instructions provided in the <a href="https://github.com/jtian123/mri-reduce" class="external-link">package README</a>.</p>
+<p>This section demonstrates optional external-tooling workflows. The
+code chunks are shown for reference only and are not executed when the
+vignette is built.</p>
 <p>This vignette outlines the sequential steps involved in the image
 processing pipeline, designed to prepare and analyze T1-weighted brain
 MRI data effectively:</p>
@@ -272,6 +275,9 @@ link:</p>
 <p><a href="https://nilearn.github.io/stable/modules/generated/nilearn.plotting.plot_anat.html" class="external-link">Plot
 Anatomical Image - nilearn.plot_anat Documentation</a></p>
 <p>Here is an example below:</p>
+<p>This helper requires a Python environment configured for
+<code>reticulate</code> with <code>nilearn</code>, <code>nibabel</code>,
+and <code>matplotlib</code>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/map2_eve.html">map2_eve</a></span><span class="op">(</span>mask_img_path <span class="op">=</span> <span class="st">"~/mask_nifti_GM_Volume_pm25_test1_avg_red.nii.gz"</span>,</span>
 <span>         save_path <span class="op">=</span> <span class="st">'~/test.png'</span>,</span>

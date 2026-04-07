@@ -12,7 +12,11 @@ relation for each ROI, including the index (`tind`), the text label
 ## Process T1-weighted Brain MRI Data with FSL and Register to EVE Atlas
 
 Ensure FSL is installed as per the instructions provided in the [package
-README](https://github.com/jtian123/MRIreduce).
+README](https://github.com/jtian123/mri-reduce).
+
+This section demonstrates optional external-tooling workflows. The code
+chunks are shown for reference only and are not executed when the
+vignette is built.
 
 This vignette outlines the sequential steps involved in the image
 processing pipeline, designed to prepare and analyze T1-weighted brain
@@ -190,6 +194,9 @@ can be found at the following link:
 Documentation](https://nilearn.github.io/stable/modules/generated/nilearn.plotting.plot_anat.html)
 
 Here is an example below:
+
+This helper requires a Python environment configured for `reticulate`
+with `nilearn`, `nibabel`, and `matplotlib`.
 
 ``` r
 map2_eve(mask_img_path = "~/mask_nifti_GM_Volume_pm25_test1_avg_red.nii.gz",

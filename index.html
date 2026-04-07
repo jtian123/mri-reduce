@@ -77,19 +77,38 @@
 <h3 id="step-3-optionally-install-evetemplate">Step 3: Optionally install EveTemplate<a class="anchor" aria-label="anchor" href="#step-3-optionally-install-evetemplate"></a>
 </h3>
 <p>If you want the package to resolve the EVE template automatically, install the optional <code>EveTemplate</code> package. Otherwise, you can supply a template path directly to <code><a href="reference/eve_T1.html">eve_T1()</a></code>, <code><a href="reference/eve_Fl.html">eve_Fl()</a></code>, and <code><a href="reference/map2_eve.html">map2_eve()</a></code>.</p>
-<p>First, ensure that remotes is installed:</p>
+<p>Install EveTemplate from the Neuroconductor repository:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"remotes"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span></code></pre></div>
-<p>Then install EveTemplate:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"neuroconductor/EveTemplate"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span></span>
+<span>  <span class="st">"EveTemplate"</span>,</span>
+<span>  repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"https://neuroconductor.org/releases/2020/05"</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"repos"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="step-4-install-fsl">Step 4: Install FSL<a class="anchor" aria-label="anchor" href="#step-4-install-fsl"></a>
 </h3>
 <p>FSL is not an R package but a standalone software suite for MRI and fMRI analysis. Follow the instructions on [their website] (<a href="https://fsl.fmrib.ox.ac.uk/fsl/docs/#/install/index" class="external-link uri">https://fsl.fmrib.ox.ac.uk/fsl/docs/#/install/index</a>) to download and install it.</p>
 </div>
+<div class="section level3">
+<h3 id="step-5-optional-python-setup-for-map2_eve">Step 5: Optional Python setup for map2_eve<a class="anchor" aria-label="anchor" href="#step-5-optional-python-setup-for-map2_eve"></a>
+</h3>
+<p>The <code><a href="reference/map2_eve.html">map2_eve()</a></code> helper also requires a working Python environment for <code>reticulate</code> with the Python packages <code>nilearn</code>, <code>nibabel</code>, and <code>matplotlib</code>. This is only needed if you want to generate EVE-overlay figures from R.</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="notes-on-external-requirements">Notes on external requirements<a class="anchor" aria-label="anchor" href="#notes-on-external-requirements"></a>
+</h2>
+<ul>
+<li>The package can be installed and its core pure-R functionality can be used without FSL or Python.</li>
+<li>
+<code><a href="reference/eve_T1.html">eve_T1()</a></code> and <code><a href="reference/eve_Fl.html">eve_Fl()</a></code> require FSL.</li>
+<li>
+<code><a href="reference/map2_eve.html">map2_eve()</a></code> requires Python packages configured for <code>reticulate</code>.</li>
+<li>If <code>EveTemplate</code> is not installed, you can still use the relevant functions by supplying <code>template_img_path</code> directly.</li>
+</ul>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="license">
