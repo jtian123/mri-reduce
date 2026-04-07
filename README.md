@@ -57,17 +57,16 @@ If you want the package to resolve the EVE template automatically,
 install the optional `EveTemplate` package. Otherwise, you can supply a
 template path directly to `eve_T1()`, `eve_Fl()`, and `map2_eve()`.
 
-First, ensure that remotes is installed:
+Install EveTemplate from the Neuroconductor repository:
 
 ``` r
-if (!requireNamespace("remotes", quietly = TRUE))
-    install.packages("remotes")
-```
-
-Then install EveTemplate:
-
-``` r
-remotes::install_github("neuroconductor/EveTemplate")
+install.packages(
+  "EveTemplate",
+  repos = c(
+    "https://neuroconductor.org/releases/2020/05",
+    getOption("repos")
+  )
+)
 ```
 
 ### Step 4: Install FSL
@@ -76,3 +75,19 @@ FSL is not an R package but a standalone software suite for MRI and fMRI
 analysis. Follow the instructions on \[their website\]
 (<https://fsl.fmrib.ox.ac.uk/fsl/docs/#/install/index>) to download and
 install it.
+
+### Step 5: Optional Python setup for map2_eve
+
+The `map2_eve()` helper also requires a working Python environment for
+`reticulate` with the Python packages `nilearn`, `nibabel`, and
+`matplotlib`. This is only needed if you want to generate EVE-overlay
+figures from R.
+
+## Notes on external requirements
+
+- The package can be installed and its core pure-R functionality can be
+  used without FSL or Python.
+- `eve_T1()` and `eve_Fl()` require FSL.
+- `map2_eve()` requires Python packages configured for `reticulate`.
+- If `EveTemplate` is not installed, you can still use the relevant
+  functions by supplying `template_img_path` directly.
