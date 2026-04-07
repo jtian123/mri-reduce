@@ -43,8 +43,11 @@ jobs:
           extra-packages: |
             any::rcmdcheck
             any::testthat
+            any::DT
+            any::knitr
+            any::rmarkdown
             local::.
-          needs: check
+          needs: hard-deps
 
       - name: Session info
         run: sessionInfo()
