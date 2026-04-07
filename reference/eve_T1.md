@@ -1,0 +1,79 @@
+# Process T1-weighted Brain MRI Data with FSL and Register to EVE Atlas
+
+This function takes a T1-weighted brain MRI image, performs bias
+correction, reorientation to standard space, brain extraction using
+FSL's BET, and registration to the EVE brain template. It then segments
+the brain volume into different tissue types, calculates intracranial
+volume and outputs the results as an Rdata file.
+
+## Usage
+
+``` r
+eve_T1(
+  fpath,
+  outpath,
+  fsl_path,
+  fsl_outputtype = "NIFTI_GZ",
+  template_img_path = NULL
+)
+```
+
+## Arguments
+
+- fpath:
+
+  Character string specifying the path to one T1-weighted MRI file. The
+  file should be in NIFTI file format (.nii.gz).
+
+- outpath:
+
+  Character string specifying the output directory where the results
+  will be saved as an Rdata file.
+
+- fsl_path:
+
+  Character string specifying the directory where FSL is installed.
+
+- fsl_outputtype:
+
+  Character string specifying the FSL output file type. Defaults to
+  "NIFTI_GZ".
+
+- template_img_path:
+
+  Optional path to an EVE template image. If `NULL`, the function will
+  try to use the optional package `EveTemplate`.
+
+## Value
+
+Saves the image data after processing to the specified output path.
+Outputs an Rdata file containing three components: image intensities
+array, segmented tissues array, and brain volume metrics.
+
+## Details
+
+The function begins by loading the EVE brain template for image
+registration. It then reads the T1-weighted MRI file and reorients it to
+standard space using FSL's `fslreorient2std`. Following reorientation,
+it applies bias correction with FSL's `fsl_biascorrect`, which is
+necessary to correct for field inhomogeneities that can affect
+quantitative analysis. The next step involves using FSL’s Brain
+Extraction Tool (BET) to isolate the brain from non-brain tissue which
+is crucial for accurate subsequent analysis. After brain extraction, the
+image is registered to the EVE brain atlas using FLIRT, ensuring that
+the image is aligned with a standard coordinate space for comparable
+anatomical analysis. Subsequent to registration, the function uses FSL's
+FAST tool to segment the brain into white matter, grey matter, and
+cerebrospinal fluid, which are essential for studying brain structure
+and pathology. Finally, it calculates the volume of these tissues,
+providing key data points for clinical and research applications. Each
+step logs its progress with timestamps, aiding in debugging and
+optimization of processing times.
+
+## Examples
+
+``` r
+if (FALSE) { # \dontrun{
+eve_T1("path/to/your/image.nii.gz", "path/to/output", "/usr/local/fsl", "NIFTI_GZ")
+} # }
+```
