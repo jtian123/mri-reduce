@@ -1,0 +1,11 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
+^\.github$
+^assessment$
+^MRIreduce\.drawio$
+^MRIreduce\.Rcheck$
+^README\.Rmd$
+^cran-comments\.md$
