@@ -73,7 +73,9 @@ optimization of processing times.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+# \donttest{
+if (FALSE) { # Replace paths with local files and an installed FSL setup.
 eve_T1("path/to/your/image.nii.gz", "path/to/output", "/usr/local/fsl", "NIFTI_GZ")
-} # }
+}
+# }
 ```

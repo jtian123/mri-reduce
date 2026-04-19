@@ -68,11 +68,13 @@ following steps:
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+# \donttest{
+if (FALSE) { # After running the partition pipeline and creating local output files.
 loc_df <- map_feature2_loc(
   feature_name = "inferior_frontal_gyrus_left_module4_reduced_var_13",
   threshold = 0.8,
   main_dir = "/path/to/data"
 )
-} # }
+}
+# }
 ```

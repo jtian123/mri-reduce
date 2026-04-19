@@ -1,9 +1,9 @@
 # Plot Mask on EVE Template using Python and Nilearn
 
 This function plots a mask image on the EVE template using Python's
-Nilearn library and optionally saves the plot as an image. It ensures
-the required Python libraries are installed, and it handles the
-appropriate Conda environment setup.
+Nilearn library and optionally saves the plot as an image. It checks
+that the required Python libraries are available in the environment
+configured for `reticulate`.
 
 ## Usage
 
@@ -69,7 +69,8 @@ provided, the plot is saved as an image at the specified location.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+# \donttest{
+if (FALSE) { # Requires a configured Python environment and local neuroimaging files.
 map2_eve(
   mask_img_path = "/path/to/mask_nifti_GM_Volume.nii.gz",
   save_path = "/path/to/save_output.png",
@@ -78,5 +79,6 @@ map2_eve(
   alpha = 0.8,
   title = "Mask on EVE Template"
 )
-} # }
+}
+# }
 ```

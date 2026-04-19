@@ -65,10 +65,12 @@ are calculated based on the segmented tissues.
 ## Examples
 
 ``` r
-if (FALSE) { # \dontrun{
+# \donttest{
+if (FALSE) { # Replace paths with local files and an installed FSL setup.
 eve_Fl("path/to/your/flair/image.nii.gz",
        "path/to/output/",
        "/usr/local/fsl",
        "NIFTI_GZ")
-} # }
+}
+# }
 ```
