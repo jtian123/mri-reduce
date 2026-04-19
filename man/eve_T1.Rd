@@ -53,8 +53,10 @@ volume of these tissues, providing key data points for clinical and research app
 Each step logs its progress with timestamps, aiding in debugging and optimization of processing times.
 }
 \examples{
-\dontrun{
+\donttest{
+if (FALSE) { # Replace paths with local files and an installed FSL setup.
 eve_T1("path/to/your/image.nii.gz", "path/to/output", "/usr/local/fsl", "NIFTI_GZ")
+}
 }
 
 }

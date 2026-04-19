@@ -22,11 +22,13 @@
 #' Volumes are calculated based on the segmented tissues.
 #'
 #' @examples
-#' \dontrun{
-#' eve_Fl("path/to/your/flair/image.nii.gz",
-#'        "path/to/output/",
-#'        "/usr/local/fsl",
-#'        "NIFTI_GZ")
+#' \donttest{
+#' if (FALSE) { # Replace paths with local files and an installed FSL setup.
+#'   eve_Fl("path/to/your/flair/image.nii.gz",
+#'          "path/to/output/",
+#'          "/usr/local/fsl",
+#'          "NIFTI_GZ")
+#' }
 #' }
 #'
 #' @importFrom neurobase readnii writenii
@@ -35,6 +37,10 @@
 #' @export
 
 eve_Fl <- function(fpath, outpath, fsl_path, fsl_outputtype = "NIFTI_GZ", template_img_path = NULL) {
+  log_progress <- function(step, target) {
+    message(format(Sys.time(), "%Y-%m-%d %H:%M:%S"), " ", step, ": ", target)
+  }
+
   #Brain template
   eve_brain_fname = resolve_eve_template_path(template_img_path)
   eve_brain = readnii(eve_brain_fname)
@@ -47,15 +53,15 @@ eve_Fl <- function(fpath, outpath, fsl_path, fsl_outputtype = "NIFTI_GZ", templa
   fnm <- tmp[[1]][length(tmp[[1]])]
 
   # read in an image
-  print(paste(Sys.time(), "Reading image:", fpath))
+  log_progress("Reading image", fpath)
   fl <- neurobase::readnii(fpath)
 
   # reorient to standard
-  print(paste(Sys.time(), "Reorienting image:", fnm))
+  log_progress("Reorienting image", fnm)
   #This step is the exact same as for T1 format
   fl_ro <- fslreorient2std(fl)
 
-  print(paste(Sys.time(), "Bias correct:", fnm))
+  log_progress("Bias correct", fnm)
   bc_fl = fsl_biascorrect(file = fl_ro)
 
   temp_dir <- tempdir()
@@ -63,7 +69,7 @@ eve_Fl <- function(fpath, outpath, fsl_path, fsl_outputtype = "NIFTI_GZ", templa
   writenii(nim = bc_fl, filename = fl_name)
 
   # FSL’s Brain Extraction Tool (BET)
-  print(paste(Sys.time(), "Brain extraction:", fnm))
+  log_progress("Brain extraction", fnm)
   bc_bet <- fslbet(
     infile = fl_name,
     opts = "-B -f 0.1 -v",
@@ -72,22 +78,22 @@ eve_Fl <- function(fpath, outpath, fsl_path, fsl_outputtype = "NIFTI_GZ", templa
   )
 
   # register images to Eve templet
-  print(paste(Sys.time(), "Register to Eve:", fnm))
+  log_progress("Register to Eve", fnm)
   bc_bet <- flirt(infile = bc_bet, reffile = eve_brain)
 
   # extract intensity data from the image
-  print(paste(Sys.time(), "Extract intensities:", fnm))
+  log_progress("Extract intensities", fnm)
   adat <- oro.nifti::img_data(bc_bet) # array
 
   # segmentation of image into white matter (class = 3), grey matter (class = 2),
   # and cerebrospinal fluid (CFS) (class = 1)
-  print(paste(Sys.time(), "Segmentation:", fnm))
+  log_progress("Segmentation", fnm)
   # write and read to fix file-not-found error
   writenii(nim = bc_bet, filename = fl_name)
   msk_fast <- fast(fl_name, retimg = TRUE, opts = "-N", reorient = FALSE) # -N means no inhomogeneity correction
 
   #Calculate Brain Volume
-  print(paste(Sys.time(), "Intracranial volume calculation:", fnm))
+  log_progress("Intracranial volume calculation", fnm)
 
   vres <- oro.nifti::voxres(bc_bet, units = "cm")
   # Initialize a variable to store the total intracranial volume
@@ -111,7 +117,7 @@ eve_Fl <- function(fpath, outpath, fsl_path, fsl_outputtype = "NIFTI_GZ", templa
       bv <- bv + tissue_volume* vres
     }
   }
-  print(paste(Sys.time(), "Tissue array:", fnm))
+  log_progress("Tissue array", fnm)
   adat_fast <- oro.nifti::img_data(msk_fast) # array
 
   # output array intensities and tissues registered to Eve

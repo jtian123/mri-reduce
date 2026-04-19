@@ -1,7 +1,7 @@
 #' Plot Mask on EVE Template using Python and Nilearn
 #'
 #' This function plots a mask image on the EVE template using Python's Nilearn library and optionally saves the plot as an image.
-#' It ensures the required Python libraries are installed, and it handles the appropriate Conda environment setup.
+#' It checks that the required Python libraries are available in the environment configured for `reticulate`.
 #'
 #' @param mask_img_path A string representing the file path to the mask NIfTI file.
 #' @param cmap The colormap to use. Either a string (name of a matplotlib colormap) or a matplotlib colormap object. Default is 'bwr_r'.
@@ -25,15 +25,17 @@
 #' @return None
 #' @importFrom reticulate source_python
 #' @examples
-#' \dontrun{
-#' map2_eve(
-#'   mask_img_path = "/path/to/mask_nifti_GM_Volume.nii.gz",
-#'   save_path = "/path/to/save_output.png",
-#'   template_img_path = "/path/to/eve_template.nii.gz",
-#'   cmap = "bwr_r",
-#'   alpha = 0.8,
-#'   title = "Mask on EVE Template"
-#' )
+#' \donttest{
+#' if (FALSE) { # Requires a configured Python environment and local neuroimaging files.
+#'   map2_eve(
+#'     mask_img_path = "/path/to/mask_nifti_GM_Volume.nii.gz",
+#'     save_path = "/path/to/save_output.png",
+#'     template_img_path = "/path/to/eve_template.nii.gz",
+#'     cmap = "bwr_r",
+#'     alpha = 0.8,
+#'     title = "Mask on EVE Template"
+#'   )
+#' }
 #' }
 #'
 #' @export

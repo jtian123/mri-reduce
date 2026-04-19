@@ -53,7 +53,7 @@ suppar = function(tmp, thresh=NULL, n.chunkf=10000, B = 2000, compute.corr=TRUE,
   #dir.tmp = paste(getwd(), "temp_corr_temp", sep="/") # temporary directory
   if(compute.corr){
     dir.create(dir.tmp) # create temporary directory
-    print(paste("created:", dir.tmp))
+    message("created: ", dir.tmp)
     corfun2(tmp, thresh, n.chunkf, dir.tmp, dist.thresh=dist.thresh) # compute correlations and save as temporary files
   }
 
@@ -86,8 +86,12 @@ suppar = function(tmp, thresh=NULL, n.chunkf=10000, B = 2000, compute.corr=TRUE,
 
       fnms.dep = unlist(grpl)
       fnms.indep = fnms.indep[!is.element(fnms.indep, fnms.dep)]
-      print(paste("n.modules:", length(grpl), "n.indep.features:", length(fnms.indep),  "n.dep.features:", length(fnms.dep)))
-      print(paste("End processing file:", fnm))
+      message(
+        "n.modules: ", length(grpl),
+        " n.indep.features: ", length(fnms.indep),
+        " n.dep.features: ", length(fnms.dep)
+      )
+      message("End processing file: ", fnm)
     } # if nrow corrbin
   } # end fl.ind loop
 
@@ -187,7 +191,7 @@ corfun2 = function(dat, thresh, n.chunkf, dir.tmp, dist.thresh=NULL){
     i.end = i.start + size.chunk - 1
     if(i.end > n.f) i.end = n.f
     n.edges = corfun1(dat=dat[,i.start:i.end], thresh=thresh, dir.tmp=dir.tmp, dist.thresh=dist.thresh)
-    print(paste("Finishing chunk", chnk, "start.ind:", i.start, "end.ind:", i.end, "n.edges:", n.edges))
+    message("Finishing chunk ", chnk, " start.ind: ", i.start, " end.ind: ", i.end, " n.edges: ", n.edges)
     if(n.chunk > 1){
       for(chnk2 in (chnk+1):n.chunk){
         if(chnk2 <= n.chunk){
@@ -195,7 +199,7 @@ corfun2 = function(dat, thresh, n.chunkf, dir.tmp, dist.thresh=NULL){
           j.end = j.start + size.chunk - 1
           if(j.end > n.f) j.end = n.f
           n.edges = corfun1(dat=dat[,i.start:i.end], dat2=dat[,j.start:j.end], thresh=thresh, dir.tmp=dir.tmp, dist.thresh=dist.thresh)
-          print(paste("Finishing chunk2", chnk2, "start.ind:", j.start, "end.ind:", j.end, "n.edges:", n.edges))
+          message("Finishing chunk2 ", chnk2, " start.ind: ", j.start, " end.ind: ", j.end, " n.edges: ", n.edges)
         }
       }
     }

@@ -36,14 +36,14 @@ PartitionPipeline <- R6Class("PartitionPipeline",
 
                              # Step1: Process images and extract intensities and tissues
                              iproc = function() {
-                               cat("Starting image processing for ROI:", self$tind, "\n")
+                               message("Starting image processing for ROI: ", self$tind)
                                result = iproc(tind = self$tind, nfl = self$nfl, main_dir = self$main_dir, outp_volume = self$outp_volume)
                                self$roi = result
                              },
 
                              # Step2: Apply super partition analysis
                              supparfun = function() {
-                               cat("Starting applying Super Partition to ROI:", self$roi, "\n")
+                               message("Starting applying Super Partition to ROI: ", self$roi)
                                supparfun(
                                   tind = self$tind,
                                   roi = self$roi,
@@ -61,7 +61,7 @@ PartitionPipeline <- R6Class("PartitionPipeline",
                              partition_intensities = function() {
                                dep_list_path = file.path(self$main_dir, "dep_list", paste0(self$roi,'.rds'))
                                listes <- readRDS(dep_list_path)
-                               cat("Partitioning intensities for all sublists based on super partitions.\n")
+                               message("Partitioning intensities for all sublists based on super partitions.")
                                cores <- if (is.null(self$num_cores)) 1 else self$num_cores
                                cl <- makeCluster(cores)
                                on.exit(stopCluster(cl), add = TRUE)
@@ -78,7 +78,7 @@ PartitionPipeline <- R6Class("PartitionPipeline",
                              tissue_segment = function() {
                                dep_list_path = file.path(self$main_dir, "dep_list", paste0(self$roi,'.rds'))
                                listes <- readRDS(dep_list_path)
-                               cat("tissue segmentation for all sublists based on super partitions.\n")
+                               message("Tissue segmentation for all sublists based on super partitions.")
                                lapply(listes, function(sub_list) {
                                  tissue_segment(liste = sub_list,thresh_vec = self$ICC_thresh_vec,tind = self$tind, tissue_type =self$tissue_type, main_dir = self$main_dir)
                                })

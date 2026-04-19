@@ -52,7 +52,7 @@ iproc <- function(tind, nfl, main_dir, outp_volume = TRUE) {
 
   roi = lab_df[as.character(tind), "text_label"]
 
-  print(paste("Start", roi, Sys.time()))
+  message("Start ", roi, " ", format(Sys.time(), "%Y-%m-%d %H:%M:%S"))
 
   loc = which(dat_eve == tind,arr.ind = TRUE)
   loci = as.data.frame(t(which(dat_eve == tind,arr.ind = TRUE)))
@@ -77,7 +77,7 @@ iproc <- function(tind, nfl, main_dir, outp_volume = TRUE) {
   })
   # Processing each file
   for (find in seq_len(num_files)) {
-    print(c(find, Sys.time(), nfl[find]))
+    message(find, " ", format(Sys.time(), "%Y-%m-%d %H:%M:%S"), " ", nfl[find])
 
     # Load and process the data
     data_env <- new.env(parent = emptyenv())
@@ -392,7 +392,7 @@ Cmb_tissue_type <- function(thresh, roi, tissue_type, main_dir){
       tissue.prefix  = 'CFS'
     }
   }
-  print(paste("Processing for threshold:", thresh, "and tissue type:", tissue.prefix))
+  message("Processing for threshold: ", thresh, " and tissue type: ", tissue.prefix)
 
   directory = file.path(main_dir, "partition", roi, thresh, tissue.prefix)
 

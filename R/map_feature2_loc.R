@@ -27,12 +27,14 @@
 #' 3. **Extract Voxel Locations:** The mapping vector is then used to extract voxel locations from the intensity data.
 #'
 #' @examples
-#' \dontrun{
-#' loc_df <- map_feature2_loc(
-#'   feature_name = "inferior_frontal_gyrus_left_module4_reduced_var_13",
-#'   threshold = 0.8,
-#'   main_dir = "/path/to/data"
-#' )
+#' \donttest{
+#' if (FALSE) { # After running the partition pipeline and creating local output files.
+#'   loc_df <- map_feature2_loc(
+#'     feature_name = "inferior_frontal_gyrus_left_module4_reduced_var_13",
+#'     threshold = 0.8,
+#'     main_dir = "/path/to/data"
+#'   )
+#' }
 #' }
 #'
 #' @export
